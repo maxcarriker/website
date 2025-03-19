@@ -49,3 +49,18 @@ body {
     color: #aaa;
   }
   
+  .social {
+    margin-top: 2em;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+  
+  .social a {
+    color: #3366cc;
+    text-decoration: none;
+  }
+  
+  .social a:hover {
+    text-decoration: underline;
+  }
+  
