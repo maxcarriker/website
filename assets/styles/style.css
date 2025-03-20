@@ -150,7 +150,11 @@ footer {
   margin: 20px 0;
   text-align: left; /* ← Left-align the text */
 }
-
+/* Force Goodreads card to remain light even in dark mode */
+.dark .goodreads-container {
+  background-color: #59a67d !important;
+  color: #000000 !important;
+}
 
 .goodreads-header {
   font-size: 1.2rem;
