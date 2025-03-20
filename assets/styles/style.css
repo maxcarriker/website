@@ -139,3 +139,75 @@ footer {
 .theme-toggle:hover {
   background-color: var(--link-hover-color);
 }
+
+/* Goodreads Widget Styling */
+.goodreads-container {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  margin: 20px 0;
+  text-align: left; /* ← Left-align the text */
+}
+
+
+.goodreads-header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.goodreads-books {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start; /* ← left-align contents */
+}
+
+.goodreads-book {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.goodreads-book-text {
+  display: flex;
+  flex-direction: column;
+}
+.goodreads-book-text a {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.goodreads-book-text a:hover {
+  text-decoration: underline;
+}
+
+.goodreads-author {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+
+.goodreads-book img {
+  width: 50px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.goodreads-book a {
+  text-decoration: none;
+  color: var(--link-color);
+  font-weight: bold;
+}
+
+.goodreads-book a:hover {
+  text-decoration: underline;
+}
+
