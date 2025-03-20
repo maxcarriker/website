@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Garlic Butter Chicken Thighs with Turmeric Rice | My Recipes</title>
   <link rel="stylesheet" href="../assets/styles/style.css" />
+  <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
   <script data-goatcounter="https://maxcarriker.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -109,5 +110,21 @@
       <p>Made with ❤️ by Max Carriker</p>
     </footer>
   </div>
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+  
+      // Optional: store preference in localStorage
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  
+    // On page load: restore previous theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
 </body>
 </html>
