@@ -63,7 +63,7 @@ header p {
 .recipe-list a,
 .nav-list a,
 .social a,
-.home-link a,
+.home-link,
 .back-link {
   color: var(--link-color);
   text-decoration: none;
