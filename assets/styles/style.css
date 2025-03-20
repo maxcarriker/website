@@ -63,7 +63,8 @@ header p {
 .recipe-list a,
 .nav-list a,
 .social a,
-.home-link {
+.home-link a,
+.back-link {
   color: var(--link-color);
   text-decoration: none;
   font-weight: 600;
