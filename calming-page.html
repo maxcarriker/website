@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calming Blob</title>
+  <style>
+    :root {
+      --blob-color: #4e91f9;
+      --bg-color: #ffffff;
+      --text-color: #333333;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .blob {
+      width: 200px;
+      height: 200px;
+      background-color: var(--blob-color);
+      border-radius: 50%;
+      animation: pulse 4s ease-in-out infinite;
+      box-shadow: 0 0 60px rgba(78, 145, 249, 0.4);
+      margin-bottom: 2rem;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    .message {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    text-align: center;
+    max-width: 80%;
+    margin-bottom: 2rem;
+    }
+
+    .home-link {
+      font-size: 0.95rem;
+      opacity: 0.5;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.3s ease;
+    }
+
+    .home-link:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="blob"></div>
+  <div class="message" id="message">rough day? here’s a pulsating blue blob.</div>
+  <a class="home-link" href="index.html">← back home</a>
+
+  <script>
+    const messages = [
+      "rough day? here’s a pulsating blue blob.",
+      "breathe in… breathe out… blob in… blob out.",
+      "this blob believes in you.",
+      "fret not for there is a blob.",
+      "you’re doing amazing. blob confirmed.",
+      "alright, let's circle back."
+    ];
+
+    let index = 0;
+    const el = document.getElementById('message');
+
+    setInterval(() => {
+      index = (index + 1) % messages.length;
+      el.style.opacity = 0;
+      setTimeout(() => {
+        el.textContent = messages[index];
+        el.style.opacity = 0.6;
+      }, 500);
+    }, 6000);
+  </script>
+</body>
+</html>
