@@ -100,7 +100,7 @@
         document.getElementById("rainStatus").textContent =
           isRaining ? "Yes, it's raining on Max ☔️" : "No, it's not raining on Max 🌤️";
 
-        document.getElementById("lastUpdated").textContent = `Last updated: ${timestamp}`;
+        document.getElementById("lastUpdated").textContent = `Location last updated: ${timestamp}`;
       } catch (err) {
         document.getElementById("rainStatus").textContent = "Error fetching weather.";
         document.getElementById("weatherIcon").textContent = "❌";
