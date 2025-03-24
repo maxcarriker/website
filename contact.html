@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Max Carriker</title>
+  <link rel="stylesheet" href="assets/styles/style.css" />
+  <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
+  <script data-goatcounter="https://maxcarriker.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="index.html" class="home-link">Home</a>
+    </nav>
+
+    <header>
+      <h1>This form was a lot of work, you should use it.</h1>
+    </header>
+
+    <form id="messageForm" class="message-form">
+      <h2 class="form-title">Send me a message</h2>
+      <p class="subtitle">Book recs, website tweaks, love letters welcome.</p>
+    
+      <label class="form-group">
+        <span class="form-label">Your name (if you want)</span>
+        <input type="text" name="name" class="form-input">
+      </label>
+    
+      <label class="form-group">
+        <span class="form-label">Your email (if you want)</span>
+        <input type="email" name="email" class="form-input">
+      </label>
+    
+      <label class="form-group">
+        <span class="form-label">Your message</span>
+        <textarea name="message" rows="5" required class="form-input"></textarea>
+      </label>
+    
+      <button type="submit" class="form-button">Send Message</button>
+      <p id="formResponse" style="margin-top: 1rem; text-align: center;"></p>
+    </form>
+
+    <div class="social">
+      <p>Follow me on <a href="https://instagram.com/maxcarriker" target="_blank">Instagram</a></p>
+  </div>
+
+    <footer>
+      <p>Made with ❤️ by Max Carriker</p>
+    </footer>
+  </div>
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+  
+      // Optional: store preference in localStorage
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  
+    // On page load: restore previous theme
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+<script>
+  const form = document.getElementById('messageForm');
+  const responseEl = document.getElementById('formResponse');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const formBody = new URLSearchParams(formData).toString();
+
+    try {
+      const res = await fetch('https://secure-location-site.vercel.app/api/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formBody
+      });
+
+      if (res.ok) {
+        responseEl.textContent = "✅ Thanks! Your message was sent. If you put your email you'll get a confirmation.";
+        responseEl.style.color = "green";
+        form.reset();
+      } else {
+        responseEl.textContent = "⚠️ Something went wrong. Please try again.";
+        responseEl.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      responseEl.textContent = "⚠️ Failed to send. Please check your connection.";
+      responseEl.style.color = "red";
+    }
+  });
+</script>
+
+</body>
+</html>
