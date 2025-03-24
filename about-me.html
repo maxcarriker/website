@@ -21,7 +21,6 @@
 
     <header>
       <h1>About Me</h1>
-      <p class="subtitle">A picture of me:</p>
     </header>
 
     <section>
@@ -45,7 +44,29 @@
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/6c5DGbaIgwlSipyzpaQKul?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </section>
+
+    <form id="messageForm" class="message-form">
+      <h2 class="form-title">Send me a message</h2>
+      <p class="subtitle">Book recs, website tweaks, love letters welcome.</p>
     
+      <label class="form-group">
+        <span class="form-label">Your name (if you want)</span>
+        <input type="text" name="name" class="form-input">
+      </label>
+    
+      <label class="form-group">
+        <span class="form-label">Your email (if you want)</span>
+        <input type="email" name="email" class="form-input">
+      </label>
+    
+      <label class="form-group">
+        <span class="form-label">Your message</span>
+        <textarea name="message" rows="5" required class="form-input"></textarea>
+      </label>
+    
+      <button type="submit" class="form-button">Send Message</button>
+      <p id="formResponse" style="margin-top: 1rem; text-align: center;"></p>
+    </form>
 
     <div class="social">
       <p>Follow me on <a href="https://instagram.com/maxcarriker" target="_blank">Instagram</a></p>
@@ -71,5 +92,40 @@
       document.body.classList.add("dark");
     }
   </script>
+<script>
+  const form = document.getElementById('messageForm');
+  const responseEl = document.getElementById('formResponse');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const formBody = new URLSearchParams(formData).toString();
+
+    try {
+      const res = await fetch('https://secure-location-site.vercel.app/api/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formBody
+      });
+
+      if (res.ok) {
+        responseEl.textContent = "✅ Thanks! Your message was sent. If you put your email you'll get a confirmation.";
+        responseEl.style.color = "green";
+        form.reset();
+      } else {
+        responseEl.textContent = "⚠️ Something went wrong. Please try again.";
+        responseEl.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      responseEl.textContent = "⚠️ Failed to send. Please check your connection.";
+      responseEl.style.color = "red";
+    }
+  });
+</script>
+
 </body>
 </html>
