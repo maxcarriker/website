@@ -7,7 +7,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Is it raining on Max?</title>
+  <title>Is it Raining on Max?</title>
   <link rel="stylesheet" href="assets/styles/style.css" />
   <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
   <script data-goatcounter="https://maxcarriker.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -24,6 +24,10 @@
       font-size: 2rem;
       font-weight: bold;
     }
+    .weather-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
     .timestamp {
       font-size: 0.9rem;
       color: #777;
@@ -39,12 +43,12 @@
 
     <header>
       <h1>Is it raining on Max?</h1>
-      <p class="subtitle">Checking Max's latest location and weather...</p>
+      <p class="subtitle">Checking Max's latest weather...</p>
     </header>
 
     <section class="card status-box">
+      <div class="weather-icon" id="weatherIcon">⛅️</div>
       <div class="status-text" id="rainStatus">Loading...</div>
-      <div class="timestamp" id="lastUpdated"></div>
     </section>
 
     <div class="social">
@@ -66,39 +70,40 @@
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") document.body.classList.add("dark");
 
-    async function checkRain() {
-  try {
-    // Fetch location data from local JSON file
-    const locRes = await fetch('assets/data/location.json');
-    const { lat, lon, timestamp } = await locRes.json();
+    const iconMap = {
+      clear: "☀️",
+      clouds: "☁️",
+      rain: "🌧️",
+      drizzle: "🌦️",
+      thunderstorm: "⛈️",
+      snow: "❄️",
+      mist: "🌫️",
+      smoke: "💨",
+      haze: "🌤️",
+      dust: "🌪️",
+      fog: "🌫️",
+      sand: "🌬️",
+      ash: "🌋",
+      squall: "🌬️",
+      tornado: "🌪️"
+    };
 
-    // Build weather API URL
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=808762e2e4a2e6efe6aa61b2b453c9dd`;
+    async function checkWeather() {
+      try {
+        const res = await fetch("https://secure-location-site.vercel.app/api/get-location");
+        const { weatherCondition, isRaining } = await res.json();
+        const emoji = iconMap[weatherCondition] || "🌈";
+        document.getElementById("weatherIcon").textContent = emoji;
+        document.getElementById("rainStatus").textContent =
+          isRaining ? "Yes, it's raining on Max ☔️" : "No, it's not raining on Max 🌤️";
+      } catch (err) {
+        document.getElementById("rainStatus").textContent = "Error fetching weather.";
+        document.getElementById("weatherIcon").textContent = "❌";
+        console.error(err);
+      }
+    }
 
-    // Fetch weather data
-    const response = await fetch(weatherUrl);
-    if (!response.ok) throw new Error(`Weather API error: ${response.status}`);
-
-    const weatherRes = await response.json();
-
-    // Check weather condition
-    const condition = weatherRes?.weather?.[0]?.main || "";
-    const rainMessage = condition.toLowerCase().includes("rain")
-      ? "Yes, it's raining on Max ☔️"
-      : "No, it's not raining on Max 🌤️";
-
-    // Display rain status and last updated timestamp
-    document.getElementById("rainStatus").textContent = rainMessage;
-    document.getElementById("lastUpdated").textContent = `Location updated: ${timestamp}`;
-  } catch (err) {
-    console.error("Weather fetch error:", err);
-    document.getElementById("rainStatus").textContent = "Error fetching weather.";
-    document.getElementById("lastUpdated").textContent = "";
-  }
-}
-
-checkRain();
-
+    checkWeather();
   </script>
 </body>
 </html>
