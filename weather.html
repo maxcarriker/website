@@ -24,6 +24,10 @@
       font-size: 2rem;
       font-weight: bold;
     }
+    .emoji-text {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
     .weather-icon {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -47,6 +51,7 @@
     </header>
 
     <section class="card status-box">
+      <div class="emoji-text" id="emojiText">⛅️</div>
       <div class="weather-icon" id="weatherIcon">⛅️</div>
       <div class="status-text" id="rainStatus">Loading...</div>
       <div class="timestamp" id="lastUpdated"></div>
@@ -102,7 +107,8 @@
         const emojiMap = iconMap[condition] || { day: "🌈", night: "🌈" };
         const emoji = isNight ? emojiMap.night : emojiMap.day;
 
-        document.getElementById("weatherIcon").textContent = `An appropriate emoji for Max's current weather: ${emoji}`
+        document.getElementById("emojiText").textContent = `An appropriate emoji for Max's current weather:`
+        document.getElementById("weatherIcon").textContent = emoji
         document.getElementById("rainStatus").textContent =
           isRaining ? "Yes, it's raining on Max! ☔️" : "No, it's not raining on Max.";
         document.getElementById("lastUpdated").textContent = `Location last updated: ${timestamp}`;
