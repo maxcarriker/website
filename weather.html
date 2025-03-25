@@ -72,21 +72,21 @@
     if (savedTheme === "dark") document.body.classList.add("dark");
 
     const iconMap = {
-      clear: "☀️",
-      clouds: "☁️",
-      rain: "🌧️",
-      drizzle: "🌦️",
-      thunderstorm: "⛈️",
-      snow: "❄️",
-      mist: "🌫️",
-      smoke: "💨",
-      haze: "🌤️",
-      dust: "🌪️",
-      fog: "🌫️",
-      sand: "🌬️",
-      ash: "🌋",
-      squall: "🌬️",
-      tornado: "🌪️"
+      clear: { day: "☀️", night: "🌕" },
+      clouds: { day: "☁️", night: "☁️" },
+      rain: { day: "🌧️", night: "🌧️" },
+      drizzle: { day: "🌦️", night: "🌦️" },
+      thunderstorm: { day: "⛈️", night: "⛈️" },
+      snow: { day: "❄️", night: "❄️" },
+      mist: { day: "🌫️", night: "🌫️" },
+      smoke: { day: "💨", night: "💨" },
+      haze: { day: "🌤️", night: "🌤️" },
+      dust: { day: "🌪️", night: "🌪️" },
+      fog: { day: "🌫️", night: "🌫️" },
+      sand: { day: "🌬️", night: "🌬️" },
+      ash: { day: "🌋", night: "🌋" },
+      squall: { day: "🌬️", night: "🌬️" },
+      tornado: { day: "🌪️", night: "🌪️" }
     };
 
     async function checkWeather() {
@@ -94,13 +94,19 @@
         const res = await fetch("https://secure-location-site.vercel.app/api/get-location");
         const { weatherCondition, isRaining, timestamp } = await res.json();
 
-        const emoji = iconMap[weatherCondition] || "🌈";
-        document.getElementById("weatherIcon").textContent = emoji;
+        const now = new Date();
+        const hour = now.getHours();
+        const isNight = hour < 6 || hour >= 20;
 
+        const condition = weatherCondition.toLowerCase();
+        const emojiMap = iconMap[condition] || { day: "🌈", night: "🌈" };
+        const emoji = isNight ? emojiMap.night : emojiMap.day;
+
+        document.getElementById("weatherIcon").textContent = `an appropriate emoji for Max's weather: ${emoji}`
         document.getElementById("rainStatus").textContent =
-          isRaining ? "Yes, it's raining on Max ☔️" : "No, it's not raining on Max 🌤️";
-
+          isRaining ? "Yes, it's raining on Max! ☔️" : "No, it's not raining on Max";
         document.getElementById("lastUpdated").textContent = `Location last updated: ${timestamp}`;
+
       } catch (err) {
         document.getElementById("rainStatus").textContent = "Error fetching weather.";
         document.getElementById("weatherIcon").textContent = "❌";
