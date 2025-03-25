@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How far has Max walked?</title>
+  <link rel="stylesheet" href="/assets/styles/style.css" />
+  <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
+  <script data-goatcounter="https://maxcarriker.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    .status-box {
+      background: var(--card-bg);
+      padding: 2em;
+      border-radius: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 2em;
+    }
+    .status-text {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .subtext {
+      font-size: 0.9rem;
+      color: #777;
+      margin-top: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="/index.html" class="home-link">Home</a>
+    </nav>
+
+    <header>
+      <h1>How far has Max walked this year?</h1>
+      <p class="subtitle">technically walking + running distance from apple health but let's be real...</p>
+    </header>
+
+    <section class="card status-box">
+        <div class="status-text" id="distanceStatus">Loading...</div>
+        <div class="subtext" id="maxLengthText">Calculating...</div>
+        <div class="subtext" id="aroundearthText">Calculating...</div>
+    </section>
+      
+
+    <footer>
+      <p>Made with ❤️ by Max Carriker</p>
+    </footer>
+  </div>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") document.body.classList.add("dark");
+
+    async function fetchDistance() {
+        try {
+            const res = await fetch("https://secure-location-site.vercel.app/api/get-distance-summary");
+            const { total } = await res.json();
+            const rounded = total.toFixed(2);
+            document.getElementById("distanceStatus").textContent = `${rounded} miles`;
+
+            const feet = total * 5280;
+            const maxs = feet / 6;
+            const roundedMaxs = Math.round(maxs).toLocaleString();
+            const timesAroundEarth = total / 24901;
+            const roundedEarths = timesAroundEarth.toFixed(2).toLocaleString();
+
+            document.getElementById("maxLengthText").textContent = `That’s ${roundedMaxs} Max’s long!`;
+            document.getElementById("aroundearthText").textContent = `That’s ${roundedEarths} times around the Earth!`;
+        } catch (err) {
+            console.error(err);
+            document.getElementById("distanceStatus").textContent = "Error fetching distance.";
+            document.getElementById("maxLengthText").textContent = "";
+            document.getElementById("aroundearthText").textContent = "";
+        }
+    }
+
+
+    fetchDistance();
+  </script>
+</body>
+</html>
