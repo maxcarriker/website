@@ -102,9 +102,9 @@
         const emojiMap = iconMap[condition] || { day: "🌈", night: "🌈" };
         const emoji = isNight ? emojiMap.night : emojiMap.day;
 
-        document.getElementById("weatherIcon").textContent = `an appropriate emoji for Max's weather: ${emoji}`
+        document.getElementById("weatherIcon").textContent = `An appropriate emoji for Max's current weather: ${emoji}`
         document.getElementById("rainStatus").textContent =
-          isRaining ? "Yes, it's raining on Max! ☔️" : "No, it's not raining on Max";
+          isRaining ? "Yes, it's raining on Max! ☔️" : "No, it's not raining on Max.";
         document.getElementById("lastUpdated").textContent = `Location last updated: ${timestamp}`;
 
       } catch (err) {
