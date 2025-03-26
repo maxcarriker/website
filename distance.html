@@ -29,6 +29,16 @@
       color: #777;
       margin-top: 0.5em;
     }
+    @keyframes pulse {
+      0%   { background-color: var(--card-bg); }
+      50%  { background-color: rgba(0, 208, 255, 0.2); }
+      100% { background-color: var(--card-bg); }
+    }
+
+    .status-box.pulse {
+      animation: pulse 1s ease;
+    }
+
   </style>
 </head>
 <body>
@@ -69,7 +79,7 @@
             const res = await fetch("https://secure-location-site.vercel.app/api/get-distance-summary");
             const { total } = await res.json();
             const rounded = total.toFixed(2);
-            document.getElementById("distanceStatus").textContent = `${rounded} miles`;
+            animateCount("distanceStatus", total, " miles");
 
             const feet = total * 5280;
             const maxs = feet / 6;
@@ -85,7 +95,32 @@
             document.getElementById("maxLengthText").textContent = "";
             document.getElementById("aroundearthText").textContent = "";
         }
+        // Add pulse animation
+        const statusBox = document.querySelector('.status-box');
+        statusBox.classList.add('pulse');
+
+        // Remove it after animation completes so it can run again later
+        setTimeout(() => {
+          statusBox.classList.remove('pulse');
+        }, 1000);
     }
+    function animateCount(id, endValue, suffix = '', duration = 1000) {
+      const el = document.getElementById(id);
+      const start = performance.now();
+
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = (endValue * progress).toFixed(2);
+        el.textContent = `${current}${suffix}`;
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
 
 
     fetchDistance();
