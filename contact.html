@@ -41,8 +41,11 @@
         <span class="form-label">Your message</span>
         <textarea name="message" rows="5" required class="form-input"></textarea>
       </label>
+
+      <button type="submit" class="form-button">
+        <span id="buttonText">Send Message</span>
+      </button>      
     
-      <button type="submit" class="form-button">Send Message</button>
       <p id="formResponse" style="margin-top: 1rem; text-align: center;"></p>
     </form>
 
@@ -69,41 +72,52 @@
     if (savedTheme === "dark") {
       document.body.classList.add("dark");
     }
+    
   </script>
-<script>
-  const form = document.getElementById('messageForm');
-  const responseEl = document.getElementById('formResponse');
+  <script>
+    const form = document.getElementById('messageForm');
+    const responseEl = document.getElementById('formResponse');
+    const submitButton = form.querySelector('.form-button');
+    const buttonText = document.getElementById('buttonText');
 
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
 
-    const formData = new FormData(form);
-    const formBody = new URLSearchParams(formData).toString();
+      // Show loading spinner
+      submitButton.classList.add('loading');
+      buttonText.textContent = 'Sending...';
 
-    try {
-      const res = await fetch('https://secure-location-site.vercel.app/api/send-message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formBody
-      });
+      const formData = new FormData(form);
+      const formBody = new URLSearchParams(formData).toString();
 
-      if (res.ok) {
-        responseEl.textContent = "✅ Thanks! Your message was sent. If you put your email you'll get a confirmation.";
-        responseEl.style.color = "green";
-        form.reset();
-      } else {
-        responseEl.textContent = "⚠️ Something went wrong. Please try again.";
+      try {
+        const res = await fetch('https://secure-location-site.vercel.app/api/send-message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: formBody
+        });
+
+        if (res.ok) {
+          responseEl.textContent = "✅ Thanks! Your message was sent. If you put your email you'll get a confirmation.";
+          responseEl.style.color = "green";
+          form.reset();
+        } else {
+          responseEl.textContent = "⚠️ Something went wrong. Please try again.";
+          responseEl.style.color = "red";
+        }
+      } catch (err) {
+        console.error(err);
+        responseEl.textContent = "⚠️ Failed to send. Please check your connection.";
         responseEl.style.color = "red";
       }
-    } catch (err) {
-      console.error(err);
-      responseEl.textContent = "⚠️ Failed to send. Please check your connection.";
-      responseEl.style.color = "red";
-    }
-  });
-</script>
+
+      // Reset button state
+      submitButton.classList.remove('loading');
+      buttonText.textContent = 'Send Message';
+    });
+  </script>
 
 </body>
 </html>
