@@ -37,6 +37,23 @@
       color: #777;
       margin-top: 0.5em;
     }
+    .raindrop {
+    position: fixed;
+    width: 2px;
+    height: 15px;
+    background: rgba(0, 0, 255, 0.4);
+    top: -20px;
+    animation: fall linear infinite;
+    z-index: 1000;
+    border-radius: 1px;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -105,8 +122,13 @@
 
         document.getElementById("emojiText").textContent = `An appropriate emoji for Max's current weather:`
         document.getElementById("weatherIcon").textContent = emoji
-        document.getElementById("rainStatus").textContent =
-          isRaining ? "Yes, it's raining on Max! ☔️" : "No, it's not raining on Max.";
+        if (isRaining) {
+          document.getElementById("rainStatus").textContent = "Yes, it's raining on Max! ☔️";
+          createRain();
+        } else {
+          document.getElementById("rainStatus").textContent = "No, it's not raining on Max.";
+          createRain();
+        }
         document.getElementById("lastUpdated").textContent = `Location last updated: ${timestamp}`;
 
       } catch (err) {
@@ -116,8 +138,19 @@
         console.error(err);
       }
     }
-
+    function createRain() {
+      for (let i = 0; i < 100; i++) {
+        const drop = document.createElement('div');
+        drop.classList.add('raindrop');
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.animationDuration = 0.5 + Math.random() * 0.5 + 's';
+        drop.style.animationDelay = Math.random() * 2 + 's';
+        document.body.appendChild(drop);
+      }
+    }
     checkWeather();
+
+
   </script>
 </body>
 </html>
