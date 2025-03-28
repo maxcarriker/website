@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Reviews</title>
+  <link rel="stylesheet" href="assets/styles/style.css" />
+  <script data-goatcounter="https://maxcarriker.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <style>
+    .review-container {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .review-cover {
+      width: 70px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .review-title {
+      margin: 0 0 0.3em 0;
+    }
+
+    .review-stars {
+      margin: 0 0 0.5em 0;
+    }
+
+    .review-content {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
+  <main class="container">
+    <h1>Book Reviews</h1>
+    <div id="reviews">Loading reviews...</div>
+  </main>
+
+  <script>
+    const API_URL = "https://secure-location-site.vercel.app/api/get-bookreviews";
+
+    async function loadReviews() {
+      const reviewsContainer = document.getElementById("reviews");
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
+
+        if (!data.reviews || !Array.isArray(data.reviews)) {
+          reviewsContainer.innerHTML = '<p>No reviews found.</p>';
+          return;
+        }
+
+        reviewsContainer.innerHTML = data.reviews.map(r => `
+          <div class="card">
+            <div class="review-container">
+              <img src="${r.coverUrl}" alt="Cover for ${r.title}" class="review-cover" loading="lazy" onerror="this.style.display='none'"/>
+              <div>
+                <h2 class="review-title">${r.title}</h2>
+                <p class="review-stars">${r.emojiStars}</p>
+                <p class="review-content">${r.review}</p>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      } catch (err) {
+        document.getElementById("reviews").innerHTML = '<p>Error loading reviews.</p>';
+        console.error(err);
+      }
+    }
+
+    loadReviews();
+  </script>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") document.body.classList.add("dark");
+  </script>
+</body>
+</html>
