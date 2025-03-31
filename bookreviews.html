@@ -38,11 +38,23 @@
   </style>
 </head>
 <body>
-  <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
-  <main class="container">
-    <h1>Book Reviews</h1>
-    <div id="reviews">Loading reviews...</div>
-  </main>
+  <div class="container">
+    <nav>
+      <a href="index.html" class="home-link">Home</a>
+    </nav>
+
+    <header>
+      <h1>Book Reviews</h1>
+    </header>
+
+    <section>
+      <div id="reviews">Loading reviews...</div>
+    </section>
+
+    <footer>
+      <p>Made with ❤️ by Max Carriker</p>
+    </footer>
+  </div>
 
   <script>
     const API_URL = "https://secure-location-site.vercel.app/api/get-bookreviews";
