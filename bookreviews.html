@@ -58,18 +58,23 @@
           return;
         }
 
-        reviewsContainer.innerHTML = data.reviews.map(r => `
-          <div class="card">
-            <div class="review-container">
-              <img src="${r.coverUrl}" alt="Cover for ${r.title}" class="review-cover" loading="lazy" onerror="this.style.display='none'"/>
-              <div>
-                <h2 class="review-title">${r.title}</h2>
-                <p class="review-stars">${r.emojiStars}</p>
-                <p class="review-content">${r.review}</p>
+        reviewsContainer.innerHTML = data.reviews.map(r => {
+          const openLibrarySearch = `https://openlibrary.org/search?q=${encodeURIComponent(r.title)}`;
+          return `
+            <div class="card">
+              <div class="review-container">
+                <a href="${openLibrarySearch}" target="_blank" rel="noopener">
+                  <img src="${r.coverUrl}" alt="Cover for ${r.title}" class="review-cover" loading="lazy" onerror="this.style.display='none'"/>
+                </a>
+                <div>
+                  <h2 class="review-title">${r.title}</h2>
+                  <p class="review-stars">${r.emojiStars}</p>
+                  <p class="review-content">${r.review}</p>
+                </div>
               </div>
             </div>
-          </div>
-        `).join("");
+          `;
+        }).join("");
       } catch (err) {
         document.getElementById("reviews").innerHTML = '<p>Error loading reviews.</p>';
         console.error(err);
