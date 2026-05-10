@@ -31,7 +31,6 @@
           <li><a href="bookreviews.html">Book Reviews</a></li>
           <li><a href="weather.html">Is it raining on Max?</a></li>
           <li><a href="calming-page.html">Relaxing blue blob</a></li>
-          <li><a href="distance.html">How far has Max walked this year?</a></li>
           <li><a href="contact.html">Contact</a></li>
       </ul>
     </main>   
@@ -41,23 +40,7 @@
       <a href="https://github.com/maxcarriker/website" target="_blank" style="color: var(--link-color); font-weight: 600;">Source code</a> available on GitHub.
     </footer>
   </div>
-
-  <script>
-    const toggle = document.getElementById("themeToggle");
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-  
-      // Optional: store preference in localStorage
-      const isDark = document.body.classList.contains("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
-  
-    // On page load: restore previous theme
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark");
-    }
-  </script>
+  <script src="/assets/js/theme.js"></script>
   
 </body>
 </html>

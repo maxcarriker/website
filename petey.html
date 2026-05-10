@@ -74,54 +74,6 @@
       <p>Made with ❤️ by Max Carriker</p>
     </footer>
   </div>
-
-  <script>
-    const toggle = document.getElementById("themeToggle");
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      const isDark = document.body.classList.contains("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
-
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark");
-    }
-
-    const peteyImage = document.getElementById("peteyImage");
-    const peteyCaption = document.getElementById("peteyCaption");
-    let peteyImages = [];
-    let currentIndex = 0;
-
-    function showImage(index) {
-      peteyImage.src = peteyImages[index].src;
-
-      const offset = index - (peteyImages.length - 1);
-      let label = "";
-      if (offset === 0) label = "This week";
-      else if (offset === -1) label = "Last week";
-      else label = `${Math.abs(offset)} weeks ago`;
-
-      peteyCaption.textContent = label;
-    }
-
-    function prevPetey() {
-      currentIndex = (currentIndex + 1) % peteyImages.length;
-      showImage(currentIndex);
-    }
-
-    function nextPetey() {
-      currentIndex = (currentIndex - 1 + peteyImages.length) % peteyImages.length;
-      showImage(currentIndex);
-    }
-
-    fetch('assets/data/petey-data.json')
-      .then(response => response.json())
-      .then(data => {
-        peteyImages = data;
-        currentIndex = peteyImages.length - 1;
-        showImage(currentIndex);
-      });
-  </script>
+  <script src="/assets/js/theme.js"></script>
 </body>
 </html>

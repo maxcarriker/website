@@ -75,17 +75,6 @@
       <p>Made with ❤️ by Max Carriker</p>
     </footer>
   </div>
-
-  <script>
-    const toggle = document.getElementById("themeToggle");
-    toggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    });
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark");
-    }
-  </script>
+  <script src="/assets/js/theme.js"></script>
 </body>
 </html>
