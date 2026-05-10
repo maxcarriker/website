@@ -1,22 +1,3 @@
 [
-  {"src":"assets\/images\/petey-4.jpeg","caption":"now - 3"},
-  {"src":"assets\/images\/petey-3.jpeg","caption":"now - 2"},
-  {"src":"assets\/images\/petey-2.jpeg","caption":"now - 1"},
-  {"src":"assets\/images\/petey.jpeg","caption":"PLACEHOLDER"},
-  {"src":"assets\/images\/IMG_4352.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_4910.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_4252.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_4281.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5430.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5463.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5574.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5673.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5382.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5872.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5915.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5143.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_6528.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_5777.jpeg","caption":"This week"},
-  {"src":"assets\/images\/IMG_7531.jpeg","caption":"This week"},
-  {“src”: “assets/images/IMG_1256.jpeg“, “date”:”May 10, 2026 at 6:51 PM”}
+  {“src”:“assets/images/IMG_1064.jpeg“, “date”:”2026-05-130”}
 ]
