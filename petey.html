@@ -75,5 +75,31 @@
     </footer>
   </div>
   <script src="/assets/js/theme.js"></script>
+  <script>
+    let peteyPhotos = [];
+    let currentIndex = 0;
+
+    fetch('assets/data/petey-data.json')
+      .then(r => r.json())
+      .then(data => {
+        peteyPhotos = data;
+        currentIndex = data.length - 1;
+        showPetey();
+      });
+
+    function showPetey() {
+      const photo = peteyPhotos[currentIndex];
+      document.getElementById('peteyImage').src = photo.src;
+      document.getElementById('peteyCaption').textContent = photo.caption;
+    }
+
+    function prevPetey() {
+      if (currentIndex > 0) { currentIndex--; showPetey(); }
+    }
+
+    function nextPetey() {
+      if (currentIndex < peteyPhotos.length - 1) { currentIndex++; showPetey(); }
+    }
+  </script>
 </body>
 </html>
