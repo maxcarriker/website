@@ -87,10 +87,18 @@
         showPetey();
       });
 
+    function formatDate(dateStr) {
+      if (!dateStr) return 'Unknown date';
+      const d = new Date(dateStr + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    }
+
     function showPetey() {
       const photo = peteyPhotos[currentIndex];
       document.getElementById('peteyImage').src = photo.src;
-      document.getElementById('peteyCaption').textContent = photo.caption;
+      document.getElementById('peteyCaption').textContent = formatDate(photo.date);
+      document.querySelector('button[onclick="prevPetey()"]').disabled = currentIndex === 0;
+      document.querySelector('button[onclick="nextPetey()"]').disabled = currentIndex === peteyPhotos.length - 1;
     }
 
     function prevPetey() {
