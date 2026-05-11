@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
   {"src": "assets/images/petey-4.jpeg",  "date": "2025-03-20"},
   {"src": "assets/images/petey-3.jpeg",  "date": "2025-03-20"},
   {"src": "assets/images/petey-2.jpeg",  "date": "2025-03-20"},
@@ -18,4 +19,8 @@
   {"src": "assets/images/IMG_6528.jpeg", "date": "2025-08-30"},
   {"src": "assets/images/IMG_5777.jpeg", "date": "2025-11-09"},
   {"src": "assets/images/IMG_7531.jpeg", "date": "2026-01-06"}
+=======
+  {"[\n<<<<<<< HEAD\n    {\"src\": \"assets\/images\/petey-4.jpeg\",  \"date\": \"2025-03-20\"},\n    {\"src\": \"assets\/images\/petey-3.jpeg\",  \"date\": \"2025-03-20\"},\n    {\"src\": \"assets\/images\/petey-2.jpeg\",  \"date\": \"2025-03-20\"},\n    {\"src\": \"assets\/images\/petey.jpeg\",    \"date\": \"2025-03-20\"},\n    {\"src\": \"assets\/images\/IMG_4352.jpeg\", \"date\": \"2025-03-21\"},\n    {\"src\": \"assets\/images\/IMG_4910.jpeg\", \"date\": \"2025-03-23\"},\n    {\"src\": \"assets\/images\/IMG_4252.jpeg\", \"date\": \"2025-03-23\"},\n    {\"src\": \"assets\/images\/IMG_4281.jpeg\", \"date\": \"2025-03-28\"},\n    {\"src\": \"assets\/images\/IMG_5430.jpeg\", \"date\": \"2025-04-12\"},\n    {\"src\": \"assets\/images\/IMG_5463.jpeg\", \"date\": \"2025-04-19\"},\n    {\"src\": \"assets\/images\/IMG_5574.jpeg\", \"date\": \"2025-05-05\"},\n    {\"src\": \"assets\/images\/IMG_5673.jpeg\", \"date\": \"2025-05-14\"},\n    {\"src\": \"assets\/images\/IMG_5382.jpeg\", \"date\": \"2025-06-04\"},\n    {\"src\": \"assets\/images\/IMG_5872.jpeg\", \"date\": \"2025-06-15\"},\n    {\"src\": \"assets\/images\/IMG_5915.jpeg\", \"date\": \"2025-06-21\"},\n    {\"src\": \"assets\/images\/IMG_5143.jpeg\", \"date\": \"2025-08-23\"},\n    {\"src\": \"assets\/images\/IMG_6528.jpeg\", \"date\": \"2025-08-30\"},\n    {\"src\": \"assets\/images\/IMG_5777.jpeg\", \"date\": \"2025-11-09\"},\n    {\"src\": \"assets\/images\/IMG_7531.jpeg\", \"date\": \"2026-01-06\"}\n]\n":"======\n    {“src”:“assets\/images\/IMG_1064.jpeg“, “date”:”2026-05-130”}\n]\n>>>>>>> 0a62c39cbb63f072590db75f7b5ff6533bf6b1ab\n"},
+  {“src”: “assets\/images\/IMG_2262.jpeg“, “date”: ”2026-05-10”}
+>>>>>>> 9b824d7077728b01b2921b7189b34e09c9d55db7
 ]
