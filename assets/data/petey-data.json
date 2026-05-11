@@ -1,5 +1,4 @@
 [
-<<<<<<< HEAD
   {"src": "assets/images/petey-4.jpeg",  "date": "2025-03-20"},
   {"src": "assets/images/petey-3.jpeg",  "date": "2025-03-20"},
   {"src": "assets/images/petey-2.jpeg",  "date": "2025-03-20"},
@@ -20,7 +19,3 @@
   {"src": "assets/images/IMG_5777.jpeg", "date": "2025-11-09"},
   {"src": "assets/images/IMG_7531.jpeg", "date": "2026-01-06"}
 ]
-=======
-  {“src”:“assets/images/IMG_1064.jpeg“, “date”:”2026-05-130”}
-]
->>>>>>> 0a62c39cbb63f072590db75f7b5ff6533bf6b1ab
