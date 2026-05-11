@@ -60,38 +60,47 @@
   <script>
     const API_URL = "https://secure-location-site.vercel.app/api/get-bookreviews";
 
+    async function fetchReviews() {
+      const res = await fetch(API_URL);
+      const data = await res.json();
+      if (!data.reviews || !Array.isArray(data.reviews)) throw new Error("No reviews");
+      return data.reviews;
+    }
+
     async function loadReviews() {
       const reviewsContainer = document.getElementById("reviews");
+      let reviews;
       try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-
-        if (!data.reviews || !Array.isArray(data.reviews)) {
-          reviewsContainer.innerHTML = '<p>No reviews found.</p>';
+        reviews = await fetchReviews();
+      } catch {
+        reviewsContainer.innerHTML = '<p>Taking a moment to wake up, retrying...</p>';
+        await new Promise(r => setTimeout(r, 2000));
+        try {
+          reviews = await fetchReviews();
+        } catch (err) {
+          reviewsContainer.innerHTML = '<p>Error loading reviews. Try refreshing.</p>';
+          console.error(err);
           return;
         }
+      }
 
-        reviewsContainer.innerHTML = data.reviews.map(r => {
-          const openLibrarySearch = `https://openlibrary.org/search?q=${encodeURIComponent(r.title)}`;
-          return `
-            <div class="card">
-              <div class="review-container">
-                <a href="${openLibrarySearch}" target="_blank" rel="noopener">
-                  <img src="${r.coverUrl}" alt="Cover for ${r.title}" class="review-cover" loading="lazy" onerror="this.style.display='none'"/>
-                </a>
-                <div>
-                  <h2 class="review-title">${r.title}</h2>
-                  <p class="review-stars">${r.emojiStars}</p>
-                  <p class="review-content">${r.review}</p>
-                </div>
+      reviewsContainer.innerHTML = reviews.map(r => {
+        const openLibrarySearch = `https://openlibrary.org/search?q=${encodeURIComponent(r.title)}`;
+        return `
+          <div class="card">
+            <div class="review-container">
+              <a href="${openLibrarySearch}" target="_blank" rel="noopener">
+                <img src="${r.coverUrl}" alt="Cover for ${r.title}" class="review-cover" loading="lazy" onerror="this.style.display='none'"/>
+              </a>
+              <div>
+                <h2 class="review-title">${r.title}</h2>
+                <p class="review-stars">${r.emojiStars}</p>
+                <p class="review-content">${r.review}</p>
               </div>
             </div>
-          `;
-        }).join("");
-      } catch (err) {
-        document.getElementById("reviews").innerHTML = '<p>Error loading reviews.</p>';
-        console.error(err);
-      }
+          </div>
+        `;
+      }).join("");
     }
 
     loadReviews();
